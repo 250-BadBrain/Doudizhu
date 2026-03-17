@@ -8,12 +8,12 @@ React + TypeScript + Vite 的前端仓库，负责大厅、房间、出牌界面
 - Vite
 - TypeScript
 - Zustand
-- Socket.IO Client
+- WebSocket
 
 ## 已完成内容
 
 - 大厅与房间基础界面
-- Socket.IO 客户端接入
+- Worker WebSocket 客户端接入
 - 房间创建、加入、离开、准备的前端流程
 - 统一房间状态与事件日志管理
 
@@ -24,7 +24,12 @@ npm install
 npm run dev
 ```
 
-默认读取 `.env.example` 中的 `VITE_SERVER_URL`，开发阶段可指向本地后端，例如 `http://localhost:3001`。
+后端地址优先读取 `VITE_API_URL`。生产默认使用 `https://relay-doudizhu.game.h2seo4.win`，本地默认使用 `http://localhost:8787`。
+
+## 部署
+
+- Cloudflare Pages
+- 核心配置文件：`wrangler.toml`
 
 ## 后续建议
 

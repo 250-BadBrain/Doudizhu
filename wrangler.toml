@@ -1,0 +1,8 @@
+# Project basics
+name = "doudizhu"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-03-17"
+
+# Inject backend URL into Vite env
+[vars]
+VITE_API_URL = "https://relay-doudizhu.game.h2seo4.win"

@@ -244,6 +244,73 @@
   margin-top: 12px;
 }
 
+.game-state {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 14px 16px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.game-state p {
+  margin: 0;
+  color: rgba(246, 239, 227, 0.86);
+}
+
+.game-state p + p {
+  margin-top: 8px;
+}
+
+.bid-actions button {
+  min-width: 90px;
+}
+
+.last-play {
+  margin-top: 18px;
+  border-radius: 16px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.last-play p {
+  margin: 0;
+}
+
+.hand-section {
+  margin-top: 18px;
+}
+
+.hand-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.card-chip {
+  min-width: 56px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #f6efe3;
+  cursor: pointer;
+}
+
+.card-chip--selected {
+  border-color: rgba(226, 180, 92, 0.9);
+  background: rgba(226, 180, 92, 0.22);
+}
+
+.card-chip:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.hand-empty {
+  margin: 0;
+  color: rgba(246, 239, 227, 0.65);
+}
+
 .log-panel {
   grid-column: 1 / -1;
 }
