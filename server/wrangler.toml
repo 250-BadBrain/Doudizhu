@@ -1,0 +1,23 @@
+# Project basics
+name = "doudizhu-server"
+main = "src/index.ts"
+compatibility_date = "2026-03-17"
+
+# Durable Objects binding
+[[durable_objects.bindings]]
+name = "GAME_STATE"
+class_name = "GameStateObject"
+
+# Initial migration for Durable Object class
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["GameStateObject"]
+
+# Relay server custom domain route
+[[routes]]
+pattern = "relay-doudizhu.game.h2seo4.win"
+custom_domain = true
+
+# CORS validation env var
+[vars]
+ALLOWED_ORIGIN = "https://doudizhu.game.h2seo4.win,https://doudizhu-5uc.pages.dev"
