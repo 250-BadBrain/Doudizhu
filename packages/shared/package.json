@@ -1,0 +1,12 @@
+{
+  "name": "@doudizhu/shared",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./cards": {
+      "types": "./src/cards.ts",
+      "import": "./src/cards.ts",
+      "default": "./src/cards.ts"
+    }
+  }
+}

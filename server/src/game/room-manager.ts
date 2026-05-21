@@ -168,4 +168,54 @@ export class RoomManager {
 
     return roomId
   }
+
+  // ─── Persistence helpers ──────────────────────────────────────────────
+
+  serialize() {
+    const result: {
+      roomId: string
+      hostId: string
+      status: string
+      maxPlayers: number
+      players: { id: string; nickname: string; isReady: boolean; joinedAt: number }[]
+    }[] = []
+
+    for (const room of this.rooms.values()) {
+      result.push({
+        roomId: room.roomId,
+        hostId: room.hostId,
+        status: room.status,
+        maxPlayers: room.maxPlayers,
+        players: [...room.players.values()].map((p) => ({
+          id: p.id,
+          nickname: p.nickname,
+          isReady: p.isReady,
+          joinedAt: p.joinedAt,
+        })),
+      })
+    }
+
+    return result
+  }
+
+  deserializeRoom(data: {
+    roomId: string
+    hostId: string
+    status: string
+    maxPlayers: number
+    players: { id: string; nickname: string; isReady: boolean; joinedAt: number }[]
+  }) {
+    const players = new Map<string, RoomPlayer>()
+    for (const p of data.players) {
+      players.set(p.id, { id: p.id, nickname: p.nickname, isReady: p.isReady, joinedAt: p.joinedAt })
+    }
+
+    this.rooms.set(data.roomId, {
+      roomId: data.roomId,
+      hostId: data.hostId,
+      status: data.status as RoomStatus,
+      maxPlayers: data.maxPlayers,
+      players,
+    })
+  }
 }

@@ -39,11 +39,20 @@ export function useRoomSocket() {
       pushLog(payload.message)
     }
 
+    const onSessionRestored = (payload: { ok: boolean }) => {
+      if (payload.ok) {
+        pushLog('已重新连接到上一局游戏')
+      } else {
+        localStorage.removeItem('doudizhu_session')
+      }
+    }
+
     socket.on('connect', onConnect)
     socket.on('disconnect', onDisconnect)
     socket.on('room:update', onRoomUpdate)
     socket.on('room:error', onRoomError)
     socket.on('room:message', onRoomMessage)
+    socket.on('session:restored', onSessionRestored)
 
     if (socket.connected) {
       onConnect()
@@ -55,6 +64,7 @@ export function useRoomSocket() {
       socket.off('room:update', onRoomUpdate)
       socket.off('room:error', onRoomError)
       socket.off('room:message', onRoomMessage)
+      socket.off('session:restored', onSessionRestored)
     }
   }, [pushLog, setConnectionStatus, setCurrentRoom, setError])
 
@@ -83,6 +93,7 @@ export function useRoomSocket() {
       }
 
       setCurrentRoom(null)
+      localStorage.removeItem('doudizhu_session')
       return { ok: true }
     },
     toggleReady: (isReady: boolean) => {

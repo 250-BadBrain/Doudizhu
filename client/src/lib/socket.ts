@@ -53,8 +53,15 @@ class RealtimeSocket {
         }
 
         if (payload.event === 'connect' && payload.data?.socketId) {
+          const oldId = localStorage.getItem('doudizhu_session')
           this.id = String(payload.data.socketId)
           this.connected = true
+
+          if (oldId && oldId !== this.id) {
+            this.ws?.send(JSON.stringify({ event: 'session:restore', data: { oldSessionId: oldId } }))
+          }
+
+          localStorage.setItem('doudizhu_session', this.id)
         }
 
         if (payload.event === 'disconnect') {
