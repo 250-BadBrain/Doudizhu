@@ -4,5 +4,10 @@
     "packages/*",
     "server",
     "client"
-  ]
+  ],
+  "scripts": {
+    "build": "npm run -w client build",
+    "check:client": "npm run -w client check",
+    "check:server": "npm run -w server check"
+  }
 }

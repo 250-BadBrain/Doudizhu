@@ -49,8 +49,8 @@ npx wrangler deploy
 ### 前端 - Cloudflare Pages
 
 1. 将本仓库关联到 Cloudflare Pages
-2. 设置：
-   - **Root directory**: `client`
+2. **Root directory 保持为空（使用仓库根目录）**
+3. 设置：
    - **Build command**: `npm ci && npm run build`
-   - **Build output directory**: `dist`
-3. 设置环境变量 `VITE_API_URL=https://relay-doudizhu.game.h2seo4.win`
+   - **Build output directory**: `client/dist`
+4. 设置环境变量 `VITE_API_URL=https://relay-doudizhu.game.h2seo4.win`
