@@ -54,7 +54,7 @@ export function useDoudizhuGame({ room, myId }: UseDoudizhuGameParams) {
         pendingTimerRef.current = null
         return null
       })
-    }, 5000)
+    }, 15_000)
   }
 
   useEffect(() => {

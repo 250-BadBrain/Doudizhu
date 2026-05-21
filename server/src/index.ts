@@ -281,24 +281,22 @@ export class GameStateObject {
   // ─── Disconnect / Reconnect ──────────────────────────────────────────
 
   private handleDisconnect(sessionId: string): void {
-    this.sessionSockets.delete(sessionId)
-
     const roomId = this.sessionRooms.get(sessionId)
-    if (!roomId) return
 
-    const game = this.roomGames.get(roomId)
-
-    if (game && (game.phase === 'bidding' || game.phase === 'playing')) {
-      this.disconnectedSessions.set(sessionId, {
-        roomId,
-        playerId: sessionId,
-        timer: null,
-      })
-
-      this.scheduleAutoPlay(sessionId, roomId, game, sessionId)
-      return
+    if (roomId) {
+      const game = this.roomGames.get(roomId)
+      if (game && (game.phase === 'bidding' || game.phase === 'playing')) {
+        this.disconnectedSessions.set(sessionId, {
+          roomId,
+          playerId: sessionId,
+          timer: null,
+        })
+        this.scheduleAutoPlay(sessionId, roomId, game, sessionId)
+        return
+      }
     }
 
+    this.sessionSockets.delete(sessionId)
     const result = this.roomManager.disconnect(sessionId)
     this.sessionRooms.delete(sessionId)
 
@@ -753,7 +751,11 @@ export class GameStateObject {
   private send(target: string | WebSocket, event: string, data: unknown): void {
     const socket = typeof target === 'string' ? this.sessionSockets.get(target) : target
     if (!socket) return
-    socket.send(JSON.stringify({ event, data }))
+    try {
+      socket.send(JSON.stringify({ event, data }))
+    } catch {
+      // Socket may be closed; ignore send failure
+    }
   }
 
   private sendError(sessionId: string, message: string): void {
